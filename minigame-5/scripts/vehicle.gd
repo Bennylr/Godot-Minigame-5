@@ -1074,3 +1074,7 @@ func calculate_damping(weight : float, spring_rate : float, damping_ratio : floa
 
 func calculate_axle_spring_force(compression : float, spring_length : float, spring_rate : float) -> float:
 	return spring_length * compression * 1000.0 * spring_rate * 2.0
+
+
+func _on_finsh_line_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

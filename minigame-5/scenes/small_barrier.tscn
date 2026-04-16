@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://if0x67fbi6ay"]
+
+[ext_resource type="PackedScene" uid="uid://cv3siiel7hrtu" path="res://props/road_barrier_1.glb" id="1_aanu2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_aanu2"]
+bounce = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xu2c2"]
+size = Vector3(0.67181396, 1.5534973, 0.9428406)
+
+[node name="Small Barrier" type="RigidBody3D" unique_id=1618254037]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_aanu2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1228397441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0073547363, 0.27674866, -0.0012664795)
+shape = SubResource("BoxShape3D_xu2c2")
+
+[node name="road_barrier_12" parent="." unique_id=1996934567 instance=ExtResource("1_aanu2")]

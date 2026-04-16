@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d2xf4wuh2u4t6"]
+[gd_scene format=3 uid="uid://d2xf4wuh2u4t6"]
 
 [ext_resource type="PackedScene" uid="uid://c3ixqkc6k13yi" path="res://scenes/vehicle_controller.tscn" id="1_lup1j"]
 [ext_resource type="PackedScene" uid="uid://fo6kt54q87tf" path="res://scenes/arcade_car.tscn" id="2_oiv4q"]
@@ -12,6 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://d1erbx2oq3d43" path="res://scenes/ramp.tscn" id="11_yeqkk"]
 [ext_resource type="PackedScene" uid="uid://dgohjwo5nix6w" path="res://scenes/road.tscn" id="12_shk6o"]
 [ext_resource type="PackedScene" uid="uid://d1ndnntjr4qhg" path="res://scenes/ground.tscn" id="13_qr4q7"]
+[ext_resource type="PackedScene" uid="uid://dkeqxhpma7nvd" path="res://scenes/cone.tscn" id="13_voycf"]
+[ext_resource type="PackedScene" uid="uid://tljwmy8egh4f" path="res://scenes/barrier.tscn" id="14_avd8m"]
+[ext_resource type="Script" uid="uid://bm5ob0vel8fia" path="res://scripts/finish_line.gd" id="15_shk6o"]
+[ext_resource type="PackedScene" uid="uid://bk2nkg4hj6g" path="res://props/finish line.fbx" id="16_qr4q7"]
+[ext_resource type="PackedScene" uid="uid://if0x67fbi6ay" path="res://scenes/small_barrier.tscn" id="17_qr4q7"]
+[ext_resource type="PackedScene" uid="uid://c65f2jf7eeabs" path="res://scenes/double_lamp.tscn" id="18_7x2w3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mgdar"]
 font_size = 40
@@ -34,23 +40,26 @@ sky = SubResource("Sky_fr4m5")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="ArcadeDemo" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_7x2w3"]
+size = Vector3(6.503113, 6.5369873, 0.33898926)
 
-[node name="Player" parent="." node_paths=PackedStringArray("vehicle_node") instance=ExtResource("1_lup1j")]
+[node name="ArcadeDemo" type="Node3D" unique_id=1194150342]
+
+[node name="Player" parent="." unique_id=832926441 node_paths=PackedStringArray("vehicle_node") instance=ExtResource("1_lup1j")]
 unique_name_in_owner = true
 vehicle_node = NodePath("VehicleRigidBody")
 
-[node name="VehicleRigidBody" parent="Player" instance=ExtResource("2_oiv4q")]
+[node name="VehicleRigidBody" parent="Player" unique_id=1246460617 instance=ExtResource("2_oiv4q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.926611, 0)
 center_of_mass_mode = 1
 linear_damp_mode = 1
 angular_damp_mode = 1
 
-[node name="EngineSound" parent="Player/VehicleRigidBody" node_paths=PackedStringArray("vehicle") instance=ExtResource("4_r1tsm")]
+[node name="EngineSound" parent="Player/VehicleRigidBody" unique_id=1941495193 node_paths=PackedStringArray("vehicle") instance=ExtResource("4_r1tsm")]
 max_db = -24.0
 vehicle = NodePath("..")
 
-[node name="GUI" type="Control" parent="." node_paths=PackedStringArray("vehicle")]
+[node name="GUI" type="Control" parent="." unique_id=1936017106 node_paths=PackedStringArray("vehicle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +69,7 @@ grow_vertical = 2
 script = ExtResource("5_haswc")
 vehicle = NodePath("../Player/VehicleRigidBody")
 
-[node name="CarInfoUI" type="VBoxContainer" parent="GUI"]
+[node name="CarInfoUI" type="VBoxContainer" parent="GUI" unique_id=2006685643]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,16 +78,16 @@ offset_right = -594.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Speed" type="Label" parent="GUI/CarInfoUI"]
+[node name="Speed" type="Label" parent="GUI/CarInfoUI" unique_id=2139402868]
 layout_mode = 2
 
-[node name="RPM" type="Label" parent="GUI/CarInfoUI"]
+[node name="RPM" type="Label" parent="GUI/CarInfoUI" unique_id=954498420]
 layout_mode = 2
 
-[node name="Gear" type="Label" parent="GUI/CarInfoUI"]
+[node name="Gear" type="Label" parent="GUI/CarInfoUI" unique_id=225633403]
 layout_mode = 2
 
-[node name="TimeUI" type="VBoxContainer" parent="GUI"]
+[node name="TimeUI" type="VBoxContainer" parent="GUI" unique_id=989908899]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 563.0
@@ -86,16 +95,17 @@ offset_right = 1149.0
 offset_bottom = 645.0
 script = ExtResource("5_mgdar")
 
-[node name="TimeText" type="Label" parent="GUI/TimeUI"]
+[node name="TimeText" type="Label" parent="GUI/TimeUI" unique_id=250492127]
 layout_mode = 2
 text = "time: 00:00"
 label_settings = SubResource("LabelSettings_mgdar")
 
-[node name="ConesText" type="Label" parent="GUI/TimeUI"]
+[node name="ConesText" type="Label" parent="GUI/TimeUI" unique_id=1260713866]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_mgdar")
 
-[node name="GameOverUI" type="PanelContainer" parent="GUI"]
+[node name="GameOverUI" type="PanelContainer" parent="GUI" unique_id=1047379013]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 187.0
@@ -104,33 +114,33 @@ offset_right = 955.0
 offset_bottom = 500.0
 script = ExtResource("6_is6ak")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/GameOverUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/GameOverUI" unique_id=1305088964]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="GUI/GameOverUI/VBoxContainer"]
+[node name="Label" type="Label" parent="GUI/GameOverUI/VBoxContainer" unique_id=487172005]
 layout_mode = 2
 text = "RACE FINISHED!"
 label_settings = SubResource("LabelSettings_is6ak")
 horizontal_alignment = 1
 
-[node name="FinalTimeText" type="Label" parent="GUI/GameOverUI/VBoxContainer"]
+[node name="FinalTimeText" type="Label" parent="GUI/GameOverUI/VBoxContainer" unique_id=231043544]
 layout_mode = 2
 text = "final time: 00.00"
 label_settings = SubResource("LabelSettings_is6ak")
 horizontal_alignment = 1
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("follow_this")]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1359045407 node_paths=PackedStringArray("follow_this")]
 transform = Transform3D(1, 0, 0, 0, 0.989776, 0.142629, 0, -0.142629, 0.989776, 4.05282, 1.58316, 5.80061)
 script = ExtResource("6_vitqy")
 follow_distance = 3
 follow_this = NodePath("../Player/VehicleRigidBody")
 
-[node name="Debug" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
+[node name="Debug" type="Node" parent="." unique_id=270423212 node_paths=PackedStringArray("vehicle")]
 script = ExtResource("7_vstgd")
 vehicle = NodePath("../Player/VehicleRigidBody")
 
-[node name="DebugUI" type="Control" parent="Debug"]
+[node name="DebugUI" type="Control" parent="Debug" unique_id=1966861878]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -141,17 +151,159 @@ grow_vertical = 2
 script = ExtResource("8_1up8y")
 metadata/_edit_use_anchors_ = true
 
-[node name="Track" type="Node3D" parent="."]
+[node name="Track" type="Node3D" parent="." unique_id=1745097824]
 
-[node name="Ramp" parent="Track" instance=ExtResource("11_yeqkk")]
+[node name="Ramp" parent="Track" unique_id=1776010010 instance=ExtResource("11_yeqkk")]
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 366.196, 0.316678, 79.3629)
 
-[node name="Road" parent="Track" instance=ExtResource("12_shk6o")]
+[node name="Road" parent="Track" unique_id=371646662 instance=ExtResource("12_shk6o")]
 
-[node name="Ground" parent="Track" instance=ExtResource("13_qr4q7")]
+[node name="Ground" parent="Track" unique_id=2079365306 instance=ExtResource("13_qr4q7")]
 
-[node name="LightingSettings" type="WorldEnvironment" parent="Track"]
+[node name="LightingSettings" type="WorldEnvironment" parent="Track" unique_id=309957703]
 environment = SubResource("Environment_ernvw")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Track"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Track" unique_id=1815991409]
 transform = Transform3D(0.527563, -0.46986827, 0.7077437, -1.33511e-08, 0.83311415, 0.5531012, -0.849516, -0.2917957, 0.43952015, 0, 2.26991, 0)
+
+[node name="Cone" parent="Track" unique_id=2051638878 instance=ExtResource("13_voycf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.736916, 0.119998515, -7.7964516)
+
+[node name="Cone4" parent="Track" unique_id=923108273 instance=ExtResource("13_voycf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4118376, 0.119998515, -17.421871)
+
+[node name="Cone5" parent="Track" unique_id=115259402 instance=ExtResource("13_voycf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5122175, 0.119998515, -17.421871)
+
+[node name="Cone2" parent="Track" unique_id=565636190 instance=ExtResource("13_voycf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340137, 0.10458184, -8.214537)
+
+[node name="Cone3" parent="Track" unique_id=1308998492 instance=ExtResource("13_voycf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.487343, 0.09477803, -8.0676365)
+
+[node name="Barrier" parent="Track" unique_id=238335029 instance=ExtResource("14_avd8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38387454, 0, 5.4626737)
+
+[node name="Barrier2" parent="Track" unique_id=513966521 instance=ExtResource("14_avd8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.240415, 0.10042429, 5.502113)
+
+[node name="Barrier3" parent="Track" unique_id=1857368120 instance=ExtResource("14_avd8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3052964, 0.16495031, 5.1933837)
+
+[node name="Finsh Line" type="Area3D" parent="Track" unique_id=227943745]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.072422504, 0, 12.904229)
+script = ExtResource("15_shk6o")
+
+[node name="finish line" parent="Track/Finsh Line" unique_id=301880604 instance=ExtResource("16_qr4q7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Track/Finsh Line" unique_id=1739251980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011932373, 2.7684937, 0.010192871)
+shape = SubResource("BoxShape3D_7x2w3")
+
+[node name="Small Barrier" parent="Track" unique_id=1618254037 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -5.514006, 0.009922206, -52.156437)
+
+[node name="Small Barrier2" parent="Track" unique_id=852121428 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -4.3994713, 0.12159935, -52.005566)
+
+[node name="Small Barrier3" parent="Track" unique_id=690665674 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -3.3036392, 0.11721878, -51.974037)
+
+[node name="Small Barrier4" parent="Track" unique_id=1659737657 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -2.2741563, 0.11826162, -51.974865)
+
+[node name="Small Barrier5" parent="Track" unique_id=554674768 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -1.1749637, 0.119726464, -52.017143)
+
+[node name="Small Barrier6" parent="Track" unique_id=1073006614 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -0.086340606, 0.12094717, -52.048847)
+
+[node name="Small Barrier7" parent="Track" unique_id=542721490 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 1.0445592, 0.1220458, -52.06999)
+
+[node name="Small Barrier8" parent="Track" unique_id=548483639 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 2.1690004, 0.1232665, -52.10112)
+
+[node name="Small Barrier9" parent="Track" unique_id=1928969046 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 3.2787616, 0.12460928, -52.15397)
+
+[node name="Small Barrier10" parent="Track" unique_id=833925050 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 4.3798046, 0.13139723, -52.17503)
+
+[node name="Small Barrier11" parent="Track" unique_id=125545350 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 5.5318427, 0.07524489, -52.227875)
+
+[node name="Small Barrier12" parent="Track" unique_id=1368110432 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -3.5333567, 0.009922206, -121.73903)
+
+[node name="Small Barrier13" parent="Track" unique_id=1862595897 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -2.418822, 0.12159935, -121.58815)
+
+[node name="Small Barrier14" parent="Track" unique_id=942040220 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -1.32299, 0.11721878, -121.556625)
+
+[node name="Small Barrier15" parent="Track" unique_id=1843690390 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, -0.2935071, 0.11826162, -121.55745)
+
+[node name="Small Barrier16" parent="Track" unique_id=1875597528 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 0.8056855, 0.119726464, -121.59973)
+
+[node name="Small Barrier17" parent="Track" unique_id=1832169612 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 1.8943086, 0.12094717, -121.63144)
+
+[node name="Small Barrier18" parent="Track" unique_id=243220559 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 3.0252085, 0.1220458, -121.65257)
+
+[node name="Small Barrier19" parent="Track" unique_id=824997620 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 4.1496496, 0.1232665, -121.68371)
+
+[node name="Small Barrier20" parent="Track" unique_id=1253681771 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 5.259411, 0.12460928, -121.73656)
+
+[node name="Small Barrier21" parent="Track" unique_id=704839508 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 6.3604536, 0.13139723, -121.757614)
+
+[node name="Small Barrier22" parent="Track" unique_id=1832924232 instance=ExtResource("17_qr4q7")]
+transform = Transform3D(-0.042154618, 0, 0.9991111, 0, 1, 0, -0.9991111, 0, -0.042154618, 7.512492, 0.07524489, -121.81046)
+
+[node name="Double Lamp" parent="Track" unique_id=754121096 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.794272, 0, -3.7030878)
+
+[node name="Double Lamp2" parent="Track" unique_id=30542813 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7852316, 0, -3.7030878)
+
+[node name="Double Lamp3" parent="Track" unique_id=636997720 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7852316, 0, -24.86116)
+
+[node name="Double Lamp4" parent="Track" unique_id=1857715276 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0086937, 0, -24.86116)
+
+[node name="Double Lamp5" parent="Track" unique_id=1371132140 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0086937, 0, -42.542866)
+
+[node name="Double Lamp6" parent="Track" unique_id=884089739 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.070212, 0, -42.510944)
+
+[node name="Double Lamp7" parent="Track" unique_id=9343736 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93048, 0, -72.668015)
+
+[node name="Double Lamp8" parent="Track" unique_id=1876255761 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0314, 0, -72.654785)
+
+[node name="Double Lamp9" parent="Track" unique_id=1476054956 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0314, 0, -95.779106)
+
+[node name="Double Lamp10" parent="Track" unique_id=1574168103 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.471901, 0, -95.779106)
+
+[node name="Double Lamp11" parent="Track" unique_id=876762375 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.179321, 0, -125.955635)
+
+[node name="Double Lamp12" parent="Track" unique_id=206747340 instance=ExtResource("18_7x2w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.523218, 0, -125.955635)
+
+[connection signal="area_shape_entered" from="Track/Finsh Line" to="Player/VehicleRigidBody" method="_on_finsh_line_area_shape_entered"]
+[connection signal="body_entered" from="Track/Finsh Line" to="Player/VehicleRigidBody" method="_on_finsh_line_body_entered"]
+[connection signal="body_entered" from="Track/Finsh Line" to="Track/Finsh Line" method="_on_area_3d_body_entered"]
+[connection signal="body_shape_entered" from="Track/Finsh Line" to="GUI/GameOverUI" method="_on_finsh_line_body_shape_entered"]
